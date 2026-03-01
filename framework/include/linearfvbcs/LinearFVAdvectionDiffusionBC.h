@@ -65,4 +65,12 @@ public:
    # is false as the flux is prescribed, whereas for Dirichlet BC this is true.
    */
   virtual bool useBoundaryGradientExtrapolation() const { return false; }
+
+  /**
+   * Computes the physical flux through the boundary face.
+   * The sign convention is positive = flux leaving the domain.
+   * Override in boundary conditions for which a physical flux is meaningful.
+   * The default implementation calls mooseError.
+   */
+  virtual Real computeFlux() const;
 };

@@ -20,3 +20,9 @@ LinearFVAdvectionDiffusionBC::LinearFVAdvectionDiffusionBC(const InputParameters
   : LinearFVBoundaryCondition(parameters)
 {
 }
+
+Real
+LinearFVAdvectionDiffusionBC::computeFlux() const
+{
+  mooseError(type(), " (", name(), ") does not implement computeFlux().");
+}

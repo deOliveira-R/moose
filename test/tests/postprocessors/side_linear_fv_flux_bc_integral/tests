@@ -1,0 +1,31 @@
+[Tests]
+  design = 'SideLinearFVFluxBCIntegral.md'
+  issues = '#32566'
+  [neumann_flux]
+    type = CSVDiff
+    input = 'side_linear_fv_flux_bc_integral.i'
+    csvdiff = 'side_linear_fv_flux_bc_integral_out.csv'
+    max_threads = 1
+    requirement = 'The system shall integrate the flux of a linear finite volume Neumann boundary
+                   condition over a side, returning the functor value times the face area.'
+  []
+  [errors]
+    requirement = 'The system shall report an error '
+    [wrong-bc-type]
+      type = RunException
+      input = 'side_linear_fv_flux_bc_integral.i'
+      cli_args = "LinearFVBCs/inactive=right LinearFVBCs/dummy/type=LinearFVAdvectionDiffusionFunctorDirichletBC LinearFVBCs/dummy/variable=T LinearFVBCs/dummy/boundary=right LinearFVBCs/dummy/functor=300 Postprocessors/flux_right/linear_fv_bcs=dummy"
+      detail = 'when a boundary condition that does not implement computeFlux() is used.'
+      expect_err = 'does not implement computeFlux'
+      max_threads = 1
+    []
+    [bc-not-found]
+      type = RunException
+      input = 'side_linear_fv_flux_bc_integral.i'
+      cli_args = "Postprocessors/flux_right/linear_fv_bcs=nonexistent"
+      detail = 'when a boundary condition name that does not exist is provided.'
+      expect_err = "The given LinearFVAdvectionDiffusionBC with name 'nonexistent' was not found"
+      max_threads = 1
+    []
+  []
+[]

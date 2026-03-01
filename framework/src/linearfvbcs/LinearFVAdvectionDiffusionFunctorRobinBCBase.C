@@ -117,6 +117,14 @@ LinearFVAdvectionDiffusionFunctorRobinBCBase::computeBoundaryGradientMatrixContr
   return beta / (alpha + (beta * computeCellToFaceVector() * nhat));
 }
 
+Real
+LinearFVAdvectionDiffusionFunctorRobinBCBase::computeFlux() const
+{
+  const auto face = singleSidedFaceArg(_current_face_info);
+  const auto state = determineState();
+  return getBeta(face, state) * computeBoundaryValue() - getGamma(face, state);
+}
+
 // explicit terms for diffusion kernel
 Real
 LinearFVAdvectionDiffusionFunctorRobinBCBase::computeBoundaryGradientRHSContribution() const

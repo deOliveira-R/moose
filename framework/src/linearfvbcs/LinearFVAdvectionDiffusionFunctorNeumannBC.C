@@ -98,3 +98,9 @@ LinearFVAdvectionDiffusionFunctorNeumannBC::computeBoundaryGradientRHSContributi
 {
   return _functor(singleSidedFaceArg(_current_face_info), determineState());
 }
+
+Real
+LinearFVAdvectionDiffusionFunctorNeumannBC::computeFlux() const
+{
+  return _functor(singleSidedFaceArg(_current_face_info), determineState());
+}

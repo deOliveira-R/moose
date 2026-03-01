@@ -39,6 +39,8 @@ public:
 
   virtual Real computeBoundaryGradientRHSContribution() const override;
 
+  virtual Real computeFlux() const override;
+
 protected:
   /// Getter functions (consistent entry point for all derived classes)
   virtual Real getAlpha(Moose::FaceArg face, Moose::StateArg state) const = 0;
